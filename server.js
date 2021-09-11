@@ -22,8 +22,7 @@ io.on("connection", socket => {
 
         socket.on('send-message', message => {
             messages.push(message);
-            console.log(message)
-            socket.broadcast.emit('insert-message', message);
+            socket.to(roomId).emit('insert-message', messages);
         })
 
         socket.on('disconnect', () => {
@@ -31,7 +30,7 @@ io.on("connection", socket => {
         })
     })
 })
-
+    
 server.listen(3000, () => {
     console.log('Server on');
-})
+})  
