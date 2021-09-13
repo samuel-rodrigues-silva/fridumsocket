@@ -11,11 +11,12 @@ const io = require('socket.io')(server,{
 let messages = []
     
 io.on("connection", socket => {
-    socket.on("join-room", (roomId, userId) => {
+    socket.on("join-room", (roomId, userId, messageList) => {
         console.log(roomId);
         console.log(userId);
         socket.join(roomId);
         socket.to(roomId);
+        messages = messageList
         socket.broadcast.emit('user-connected', userId);
 
         socket.emit('previous-message', messages)
