@@ -12,8 +12,6 @@ const io = require('socket.io')(server, {
 
 io.on("connection", socket => {
     socket.on("join-room", (roomId, userId, messageList) => {
-        console.log('ROOMID: ' + roomId);
-        console.log('USERID: ' + userId);
         socket.join(roomId);
         socket.to(roomId);
         let messages = messageList
