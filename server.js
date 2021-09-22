@@ -10,7 +10,7 @@ const io = require('socket.io')(server, {
     }
 });
 const cors = require('cors')
-server.use(cors());
+app.use(cors());
 
 
 io.on("connection", socket => {
