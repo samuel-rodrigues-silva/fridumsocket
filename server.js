@@ -5,7 +5,7 @@ const { v4: uuidV4 } = require('uuid');
 const path = require('path');
 const io = require('socket.io')(server, {
     cors: {
-        origin: "https://localhost:3000",
+        origin: "http://localhost:3000",
         methods: ["GET", "POST"],   
     }
 });
