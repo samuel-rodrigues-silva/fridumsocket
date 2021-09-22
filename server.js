@@ -9,6 +9,8 @@ const io = require('socket.io')(server, {
         methods: ["GET", "POST"],   
     }
 });
+const cors = require('cors')
+server.use(cors());
 
 
 io.on("connection", socket => {
