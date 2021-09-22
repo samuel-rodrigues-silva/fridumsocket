@@ -5,12 +5,20 @@ const { v4: uuidV4 } = require('uuid');
 const path = require('path');
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://localhost:3000/",
-        methods: ["GET", "POST"],   
+        origins: ["*"],
+        handlePreflightRequest: (req,res) => {
+            const headers = {
+                "Access-Control-Allow-Headers": "Content-Type, Authorization",
+                "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+                "Access-Control-Allow-Credentials": true
+            };
+            res.writeHead(200, headers);
+            res.end();
+        }
     }
 });
 const cors = require('cors')
-app.use(cors());
+server.use(cors());
 
 
 io.on("connection", socket => {
