@@ -7,9 +7,11 @@ const io = require('socket.io')(server, {
     cors: {
         origins: ["http://localhost:3001","*"],
         handlePreflightRequest: (req, res) => {
+            console.log('no brackets: ' + req.headers.origin)
+            console.log(req.headers('origin'))
             const headers = {
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Allow-Origin": req.headers.origins,
+                "Access-Control-Allow-Origin": req.headers('origin'),
                 "Access-Control-Allow-Credentials": true
             };
             res.writeHead(200, headers);
