@@ -3,23 +3,23 @@ const app = express();
 const server = require('http').createServer(app);
 const { v4: uuidV4 } = require('uuid');
 const path = require('path');
-const io = require('socket.io')(server,{
+const io = require('socket.io')(server, {
     cors: {
         origins: ['http://localhost:3001']
-    }});
+    }
+});
 
-let messages = []
-    
+
 io.on("connection", socket => {
     socket.on("join-room", (roomId, userId, messageList) => {
-        console.log(roomId);
-        console.log(userId);
+        console.log('ROOMID: ' + roomId);
+        console.log('USERID: ' + userId);
         socket.join(roomId);
         socket.to(roomId);
-        messages = messageList
+        let messages = messageList
         socket.broadcast.emit('user-connected', userId);
-
-        socket.emit('previous-message', messages)
+        console.log(messageList)
+        socket.emit('previous-message', messageList)
 
         socket.on('send-message', message => {
             messages.push(message);
@@ -28,10 +28,11 @@ io.on("connection", socket => {
 
         socket.on('disconnect', () => {
             messages = messages.length = 0
+            console.log('disconnected')
         })
     })
 })
-    
+
 server.listen(3000, () => {
     console.log('Server on');
-})  
+})
