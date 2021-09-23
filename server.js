@@ -1,23 +1,11 @@
 const express = require('express');
 const app = express();
-const cors = require('cors')
-app.use(cors())
 const server = require('http').createServer(app);
 const { v4: uuidV4 } = require('uuid');
 const path = require('path');
 const io = require('socket.io')(server, {
     cors: {
-        origins: ["*"],
-        handlePreflightRequest: (req, res) => {
-            const headers = {
-                "Access-Control-Allow-Headers": "Content-Type, Authorization",
-                "Access-Control-Allow-Methods": "GET,POST",
-                "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Credentials": "true"
-            };
-            res.writeHead(200, headers);
-            res.end();
-        }
+        origins: ["*:*"],
     }
 });
 
